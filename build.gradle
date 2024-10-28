@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id "io.freefair.lombok" version "6.5.1"
+    id "war"
+}
+
+group = 'ru.clevertec'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+
+
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.5.5.Final"
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
