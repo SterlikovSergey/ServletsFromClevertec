@@ -19,9 +19,15 @@ import java.util.List;
 @WebServlet("/api/users/*")
 public class UserServlet extends HttpServlet {
 
-    private final IUserService userService = new UserService(new Repository());
+    private IUserService userService;
     private final UserMapper userMapper = UserMapper.INSTANCE;
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Override
+    public void init() throws ServletException {
+        Repository repository = (Repository) getServletContext().getAttribute("repository");
+        userService = new UserService(repository);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -18,9 +18,15 @@ import java.io.IOException;
 @WebServlet("/api/users/contacts/*")
 public class ContactServlet extends HttpServlet {
 
-    private final IUserService userService = new UserService(new Repository());
+    private IUserService userService;
     private final ContactMapper contactMapper = ContactMapper.INSTANCE;
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Override
+    public void init() throws ServletException {
+        Repository repository = (Repository) getServletContext().getAttribute("repository");
+        userService = new UserService(repository);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
