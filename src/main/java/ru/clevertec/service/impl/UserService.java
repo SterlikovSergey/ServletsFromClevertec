@@ -1,35 +1,45 @@
 package ru.clevertec.service.impl;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import ru.clevertec.model.Contact;
 import ru.clevertec.model.User;
+import ru.clevertec.repository.Repository;
 import ru.clevertec.service.IUserService;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class UserService implements IUserService {
 
-    private List<User> users = new ArrayList<>();
+    private Repository repository;
 
     @Override
     public User createUser(User user) {
-        return null;
+        return repository.save(user);
     }
 
     @Override
     public User updateUser(Long id, User user) {
-        return null;
+        return repository.update(id, user);
     }
 
     @Override
-    public void deleteUser(Long id) {
-
+    public boolean deleteUser(Long id) {
+        return repository.delete(id);
     }
 
     @Override
     public User getUserById(Long id) {
-        return null;
+        return repository.getUserById(id);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Contact addContact(Long userId, Contact contact) {
+        return repository.addContact(contact, userId);
     }
 }
